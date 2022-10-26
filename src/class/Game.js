@@ -6,11 +6,19 @@ import Rogue from "./Rogue";
 
 class Game {
 
+    XP_STEP = [
+      {number: 2, world: 2, xpDefaults: 3},
+      {number: 5, world: 3, xpDefaults: 6},
+      {number: 10, world: 3, xpDefaults: 10},
+    ]
+
     constructor(type, name) {
       this.character = this.generateCharacter(type, name);
-      this.monster = new Rogue("Bertrand");
+      this.monster = new Rogue();
       this.count = 1;
       this.logs = [];
+      this.xpDefaults = 1;
+      this.world = 1;
     }
 
     generateCharacter(type, name){
@@ -30,6 +38,16 @@ class Game {
       });
     }
 
+    changeWorld(){
+      let xpCharacter = this.character.xp
+      this.XP_STEP.forEach((step) => {
+        if(xpCharacter >= step.number && this.xpDefaults !== step.xpDefaults){
+          this.xpDefaults = step.xpDefaults
+          this.world = step.world
+        }
+      })
+    }
+
     async play(attackType, updateGame, updateCharacter, updateMonster){
       // attaque character
       let logs = await this.character.tackle(this.monster, attackType, updateCharacter);
@@ -45,7 +63,10 @@ class Game {
         this.count++;
         updateGame({game: this})
       }else{
-        this.monster = new Rogue("Dimitri")
+        this.count++;
+        this.changeWorld();
+        this.monster = new Rogue(this.xpDefaults)
+        updateGame({game: this})
       }
     }
 }

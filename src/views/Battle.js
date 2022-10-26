@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Character from '../class/Character';
-import CharacterView from '../class/components/CharacterView';
-import Over from '../class/components/Over';
+import CharacterView from '../components/CharacterView';
+import Over from '../components/Over';
 import Game from '../class/Game';
 
 const Battle = () => {  
@@ -43,7 +43,10 @@ const Battle = () => {
     
   return (
     data.game ? (
-      <div className="game" id="game">
+      <div
+        className="game"
+        style={{backgroundImage: `url(${require(`../img//world/${data.game.world}.png`)})`}}
+      >
         <div id="infos-bloc">
           <div id="spell-bloc">
             <button
@@ -85,7 +88,14 @@ const Battle = () => {
                 </span>
               </div>
             </button>
-            <button id="next" className="btn btn-spell" disabled={isPlaying} onClick={() => play(Character.NEXT)}>Passer</button>
+            <button
+              id="next"
+              className="btn btn-spell"
+              disabled={isPlaying}
+              onClick={() => play(Character.NEXT)}
+            >
+              Passer
+            </button>
           </div>
           <div id="log-bloc">
             <div className='flex-center-column'>

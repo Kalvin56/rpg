@@ -30,7 +30,7 @@ class Character {
       this.name = name;
       this.hp = hpMax;
       this.hpMax = hpMax;
-      this.power = power + (xp*10);
+      this.power = power + ((xp-1)*10);
       this.xp = xp;
       this.xpMax = xpMax;
       this.energie = energie;
@@ -46,7 +46,7 @@ class Character {
     }
 
     lostHp(dammage){
-      if(dammage > this.hp){
+      if(dammage >= this.hp){
         this.hp = 0
         this.state = Character.STATE_DIE
         this.animation = Character.ANIMATION_DEATH

@@ -23,7 +23,7 @@ const CharacterView = ({type, character, energy, reverse}) => {
             <div className='flex-center'>
                 <div className='flex-center'>
                     <img
-                        src={require("../../img/icons/barbell.png")}
+                        src={require("../img/icons/barbell.png")}
                         alt="barbell"
                         height={24}
                     />
@@ -31,7 +31,7 @@ const CharacterView = ({type, character, energy, reverse}) => {
                 </div>
                 <div className='flex-center'>
                     <img
-                        src={require("../../img/icons/heart.png")}
+                        src={require("../img/icons/heart.png")}
                         alt="heart"
                         height={24}
                     />
@@ -40,7 +40,7 @@ const CharacterView = ({type, character, energy, reverse}) => {
             </div>
         </div>
         <div>
-            <img src={require(`../../img/${type}/${character.animation}.gif`)} alt="animation" className={`animation ${reverse ? "reverse" : ""}`}/>
+            <img src={require(`../img/${type}/${character.animation}.gif`)} alt="animation" className={`animation ${reverse ? "reverse" : ""}`}/>
         </div>
     </div>
   )

@@ -128,7 +128,6 @@ h1,h2,h3,h4,p{
 /*GAME*/
 
 .game {
-  background-image: url(./img/map_field.png);
   background-size: cover;
   height: 100vh;
   display: flex;
