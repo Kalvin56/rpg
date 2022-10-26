@@ -1,38 +1,359 @@
-.App {
+/*GLOBAL*/
+
+body {
+  background-color: black;
+  background-size: cover;
+
+}
+
+h1 {
+  color: purple;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1,h2,h3,h4,p{
+  font-family: 'VT323', monospace;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.btn {
+  background-color: purple;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  border-bottom: 7px solid #600760;
+  padding: 5px 15px 5px 15px;
+  font-size: 2vw;
+  margin: 5px;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.btn:hover {
+  background-color: #f62cf6;
+  border-color: #cb07cb;
+}
+
+.btn:active {
+  background-color: #600760;
+  border-color: #600760;
+}
+
+.btn-spell img {
+  height: 25px;
+  width: auto;
+}
+
+.btn-spell:disabled {
+  background-color: black;
+  border-color: gray;
+  cursor: default;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* CHOIX PERSO */
+
+#inscription-bloc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s;
+}
+
+#persoName {
+  background-color: purple;
+  color: white;
+  padding: 10px;
+  font-size: 1.5vw;
+  border: none;
+  border: 4px inset #600760;
+}
+
+#perso-select__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.perso-select__card {
+  height: 190px;
+  width: 220px;
+  margin: 40px;
+  background-repeat: no-repeat;
+  border: 5px solid purple;
+  border-radius: 10px;
+  transition: all 0.6s;
+  cursor: pointer;
+}
+
+.perso-select__card:hover {
+  transform: scale(1.2);
+}
+
+.perso-select__card::after {
+  content: " ";    
+  background-size: contain;
+  position: absolute;
+  bottom: 0;
+  background-repeat: no-repeat;
+  height: 100px;
+  width: 100px;
+}
+
+.perso-select__card.active {
+  background-color: purple;
+}
+
+/*GAME*/
+
+.game {
+  background-image: url(./img/map_field.png);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#game-bloc {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#character-bloc,
+#monster-bloc {
+  transition: opacity 0.6s all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  margin-bottom: 48px;
+}
+
+.character-infos {
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-content: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 8px;
+  background-color: black;
+  opacity: 0.8;
+  width: 200px;
+  padding: 16px;
+  border-radius: 16px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.xp{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: blue;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+#character-hp__container,
+#monster-hp__container {
+  content: " ";
+  width: 150px;
+  height: 20px;
+  background-color: black;
+  border-radius: 8px;
+}
+
+#character-hp,
+#monster-hp {
+  content: " ";
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  border-radius: 8px;
+}
+
+#character-energy__container {
+  content: " ";
+  width: 150px;
+  height: 20px;
+  background-color: black;
+  border-radius: 8px;
+}
+
+#character-energy {
+  content: " ";
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+  border-radius: 8px;
+}
+
+.animation {
+  height: 300px;
+  width: 300px;
+}
+
+.reverse {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+/* ACTION BLOC */
+
+#infos-bloc {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#actions-bloc {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  display: flex;
+}
+
+#spell-bloc,
+#counter-bloc,
+#log-bloc {
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin: 10px;
+  height: 60px;
+}
+
+#spell-bloc{
+  flex: 2 1 auto;
+}
+
+#log-bloc{
+  flex: 2 1 auto;
+}
+
+#counter-bloc{
+  flex: 1 1 auto;
+}
+
+
+
+
+/* ANIMATIONS */
+
+.wizardIdle {
+  animation: wizardIdle 1.2s steps(6) infinite;
+  background-size: auto;
+  background: url("./img/Idle.png") left center;
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 300px;
+}
+
+@keyframes wizardIdle {
+  100% {
+      background-position: -1386px;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+.monsterdIdle {
+  animation: monsterdIdle 1.2s steps(9) infinite;
+  background-size: auto;
+  background: url("./img/IdleMonster.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes monsterdIdle {
+  100% {
+      background-position: -810px;
+  }
+}
+
+.animAttack {
+  animation: animAttack 0.5s steps(8);
+  background-size: auto;
+  background: url("./img/Attack1.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttack {
+  100% {
+      background-position: -1848px;
+  }
+}
+
+.animAttack2 {
+  animation: animAttack2 0.5s steps(8);
+  background-size: auto;
+  background: url("./img/Attack2.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttack2 {
+  100% {
+      background-position: -1848px;
+  }
+}
+
+.animAttack3 {
+  animation: animAttack3 800s steps(4);
+  background-size: auto;
+  background: url("./img/Attack3.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttack3 {
+  100% {
+      background-position: -736px;
+  }
+}
+
+.animDeath {
+  animation: animDeath 1.2s steps(7);
+  background-size: auto;
+  background: url("./img/Death.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animDeath {
+  100% {
+      background-position: -1617px;
+  }
+}
+
+.animHitMonster {
+  animation: animHitMonster 1.2s steps(3);
+  background-size: auto;
+  background: url("./img/hitmonster.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animHitMonster {
+  100% {
+      background-position: -270px;
+  }
+}
+
+.animAttackMonster {
+  animation: animAttackMonster 1.2s steps(16);
+  background-size: auto;
+  background: url("./img/Attack.png") left center;
+  background-repeat: no-repeat;
+}
+
+@keyframes animAttackMonster {
+  100% {
+      background-position: -1440px;
   }
 }
