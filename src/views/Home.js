@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <div>
-      <form className="inscription-bloc" onSubmit={play}>
+      <form className="main-block" onSubmit={play}>
           <h1>Veuillez choisir votre Personnage</h1>
           <div className="flex-center">
               <div

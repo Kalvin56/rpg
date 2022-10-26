@@ -70,7 +70,7 @@ h1,h2,h3,h4,p{
 
 /* CHOIX PERSO */
 
-.inscription-bloc {
+.main-block {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -176,6 +176,24 @@ h1,h2,h3,h4,p{
   height: 25px;
   background-color: blue;
   color: white;
+}
+
+.energy-good{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: #73d13d;
+  color: white;
+  font-size: 12px;
+}
+
+.energy-bad{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 12px;
 }
 
 #character-hp__container,

@@ -97,14 +97,14 @@ class Character {
 
     async tackle(ennemy, attackType, updateCharacter){
       let logs = [];
+      let power = attackType === Character.ATTACK_SPECIAL ? this.power*Character.ATTACK_SPECIAL_MULTIPLICATE : this.power
       let energieNeed = this.energieNeed(attackType);
-      if(energieNeed > this.energie){
+      if(energieNeed > this.energie && attackType !== Character.NEXT){
         logs.push(`
           [${this.name}] Energie insuffisante
         `);
         return logs;
       }
-      let power = attackType === Character.ATTACK_SPECIAL ? this.power*Character.ATTACK_SPECIAL_MULTIPLICATE : this.power
       if(attackType === Character.NEXT){
         this.winEnergie(Character.ENERGIE_RETRIEVE)
         logs.push(`
@@ -115,6 +115,7 @@ class Character {
         logs.push(`
           [${this.name}] ${log}
         `)
+        this.lostEnergie(Character.ENERGIE_CONSUME_SORT)
       }else{
         this.animation = this.getAnimation(attackType)
         ennemy.animation = Character.ANIMATION_HIT
@@ -129,8 +130,12 @@ class Character {
           logs.push(`[${ennemy.name}] Mort`);
           this.xpUpgrade();
         }
+        if(attackType === Character.ATTACK_SPECIAL){
+          this.lostEnergie(Character.ENERGIE_CONSUME_SPECIAL)
+        }else{
+          this.lostEnergie(Character.ENERGIE_CONSUME)
+        }
       }
-      this.lostEnergie(Character.ENERGIE_CONSUME)
       updateCharacter(this);
       return logs;
     }
