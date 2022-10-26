@@ -30,7 +30,7 @@ class Character {
       this.name = name;
       this.hp = hpMax;
       this.hpMax = hpMax;
-      this.power = power;
+      this.power = power + (xp*10);
       this.xp = xp;
       this.xpMax = xpMax;
       this.energie = energie;
@@ -99,27 +99,34 @@ class Character {
       let logs = [];
       let energieNeed = this.energieNeed(attackType);
       if(energieNeed > this.energie){
-        logs.push(`[${this.name}] - Energie insuffisante`);
+        logs.push(`
+          [${this.name}] Energie insuffisante
+        `);
         return logs;
       }
       let power = attackType === Character.ATTACK_SPECIAL ? this.power*Character.ATTACK_SPECIAL_MULTIPLICATE : this.power
       if(attackType === Character.NEXT){
         this.winEnergie(Character.ENERGIE_RETRIEVE)
-        logs.push(`[${this.name}] - Energie + ${Character.ENERGIE_RETRIEVE}`)
+        logs.push(`
+          [${this.name}] Energie +${Character.ENERGIE_RETRIEVE}
+        `)
       }else if(attackType === Character.ATTACK_SORT){
-        this.sort();
+        let log = this.sort();
+        logs.push(`
+          [${this.name}] ${log}
+        `)
       }else{
         this.animation = this.getAnimation(attackType)
         ennemy.animation = Character.ANIMATION_HIT
         updateCharacter(this);
         await sleep(2500);
         ennemy.lostHp(power);
-        logs.push(`[${ennemy.name}] - ${power} dégats`);
+        logs.push(`[${this.name}] Attaque (${power} dégats)`);
         this.animation = Character.ANIMATION_IDLE
         if(ennemy.state !== Character.STATE_DIE){
           ennemy.animation = Character.ANIMATION_IDLE
         }else{
-          logs.push(`[${ennemy.name}] - Mort`);
+          logs.push(`[${ennemy.name}] Mort`);
           this.xpUpgrade();
         }
       }

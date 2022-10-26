@@ -11,6 +11,7 @@ class Mage extends Character {
       if(this.hp > this.hpMax){
         this.hp = this.hpMax
       }
+      return "Regain santé + 50%"
     }
 }
 

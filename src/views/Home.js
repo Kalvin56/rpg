@@ -17,23 +17,43 @@ const Home = () => {
   }
   
   const play = () => {
-    localStorage.setItem("character", JSON.stringify({name, type}))
-    history.push("/battle");
+    if(name){
+      localStorage.setItem("character", JSON.stringify({name, type}))
+      history.push("/battle");
+    }
   }
 
   return (
     <div>
-      <div id="inscription-bloc">
+      <form className="inscription-bloc" onSubmit={play}>
           <h1>Veuillez choisir votre Personnage</h1>
-          <input type="text" id="persoName" placeholder='Nom du perso' onChange={(e) => handleName(e)} />
-          <div id="perso-select__container">
-              <div  className={`perso-select__card animAttack ${type === Character.TYPE_MAGE ? "active" : ""}`} onClick={() => handleType(Character.TYPE_MAGE)}>
+          <div className="flex-center">
+              <div
+                className={`perso-select__card ${type === Character.TYPE_MAGE ? "active" : ""}`}
+                onClick={() => handleType(Character.TYPE_MAGE)}
+              >
+                <div>
+                    <img src={require(`../img/mage/idle.gif`)} alt="animation" className="animation-small"/>
+                </div>
               </div>
-              <div id="type2" className={`perso-select__card animAttack3 ${type === Character.TYPE_KNIGHT ? "active" : ""}`} onClick={() => handleType(Character.TYPE_KNIGHT)}>
+              <div
+                className={`perso-select__card ${type === Character.TYPE_KNIGHT ? "active" : ""}`}
+                onClick={() => handleType(Character.TYPE_KNIGHT)}
+              >
+                <div>
+                    <img src={require(`../img/knight/idle.gif`)} alt="animation" className="animation-small"/>
+                </div>
               </div>
           </div>
-          <button className="btn" onClick={play}>Jouer</button>
-      </div>
+          <input
+            type="text"
+            className="input-form"
+            placeholder='Nom du perso'
+            onChange={(e) => handleName(e)}
+            required
+          />
+          <input type="submit" className="btn" onClick={play} value="Jouer"/>
+      </form>
     </div>
   )
 }

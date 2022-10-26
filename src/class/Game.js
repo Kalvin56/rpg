@@ -2,7 +2,6 @@ import { sleep } from "../functions/functions";
 import Character from "./Character";
 import Knight from "./Knight";
 import Mage from "./Mage";
-import Monster from "./Monster";
 import Rogue from "./Rogue";
 
 class Game {
@@ -10,7 +9,7 @@ class Game {
     constructor(type, name) {
       this.character = this.generateCharacter(type, name);
       this.monster = new Rogue("Bertrand");
-      this.count = 0;
+      this.count = 1;
       this.logs = [];
     }
 
@@ -46,7 +45,7 @@ class Game {
         this.count++;
         updateGame({game: this})
       }else{
-        this.monster = new Monster("Le nouveau monstre")
+        this.monster = new Rogue("Dimitri")
       }
     }
 }

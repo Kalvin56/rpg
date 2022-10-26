@@ -38,26 +38,29 @@ const Battle = () => {
     data.game ? (
       <div className="game" id="game">
         <div id="infos-bloc">
-          {!isPlaying ? (
-            <div id="spell-bloc">
-              <button id="spell1" className="btn btn-spell" onClick={() => play(Character.ATTACK_SORT)} ><img src={require("../img/potion.png")} alt="potion"></img>
-              </button>
-              <button id="spell1" className="btn btn-spell" onClick={() => play(Character.ATTACK_SPECIAL)} ><img src={require("../img/potion.png")} alt="potion"></img>
-              </button>
-              <button id="spell2" className="btn btn-spell" onClick={() => play(Character.ATTACK)}><img src={require("../img/sword.png")}  alt="sword"></img>
-              </button>
-              <button id="next" className="btn btn-spell" onClick={() => play(Character.NEXT)}>Passer</button>
-            </div>
-          ) : null}
+          <div id="spell-bloc">
+            <button id="spell1" className="btn btn-spell" disabled={isPlaying} onClick={() => play(Character.ATTACK_SORT)} >
+              <img src={require("../img/icons/beer.png")} alt="potion"></img>
+            </button>
+            <button id="spell1" className="btn btn-spell" disabled={isPlaying} onClick={() => play(Character.ATTACK_SPECIAL)} >
+              <img src={require("../img/icons/sword2.png")} alt="potion"></img>
+            </button>
+            <button id="spell2" className="btn btn-spell" disabled={isPlaying} onClick={() => play(Character.ATTACK)}>
+              <img src={require("../img/icons/sword.png")}  alt="sword"></img>
+            </button>
+            <button id="next" className="btn btn-spell" disabled={isPlaying} onClick={() => play(Character.NEXT)}>Passer</button>
+          </div>
           <div id="log-bloc">
-              <p>
-                {data.game.logs ? data.game.logs.map((log) => (
-                  log
-                )) : null}
-              </p>
+            <div className='flex-center-column'>
+              {data.game.logs ? data.game.logs.map((log) => (
+                <div className='p-4'>
+                  {log}
+                </div>
+              )) : null}
+            </div>
           </div>
           <div id="counter-bloc">
-              {data.game.count}
+              <h3>Tour : {data.game.count}</h3>
           </div>
         </div>
         <div id="game-bloc">

@@ -8,6 +8,7 @@ class Knight extends Character {
 
     sort(){
       this.power += 0.20*this.power;
+      return "Puissance + 20%"
     }
 }
 
