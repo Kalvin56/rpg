@@ -13,8 +13,8 @@ class Game {
     ]
 
     constructor(type, name) {
-      this.character = this.generateCharacter(type, name);
-      this.monster = new Rogue();
+      this.player = this.generateCharacter(type, name);
+      this.enemy = new Rogue();
       this.count = 1;
       this.logs = [];
       this.xpDefaults = 1;
@@ -39,7 +39,7 @@ class Game {
     }
 
     changeWorld(){
-      let xpCharacter = this.character.xp
+      let xpCharacter = this.player.xp
       this.XP_STEP.forEach((step) => {
         if(xpCharacter >= step.number && this.xpDefaults !== step.xpDefaults){
           this.xpDefaults = step.xpDefaults
@@ -49,23 +49,23 @@ class Game {
     }
 
     async play(attackType, updateGame, updateCharacter, updateMonster){
-      // attaque character
-      let logs = await this.character.tackle(this.monster, attackType, updateCharacter);
+      // attaque player
+      let logs = await this.player.tackle(this.enemy, attackType, updateCharacter);
       this.addLogs(logs);
       updateGame({game: this})
 
       await sleep(1000);
 
-      if(this.monster.state !== Character.STATE_DIE){
-        // attaque monstre
-        logs = await this.monster.tackle(this.character, Character.ATTACK, updateMonster)
+      if(this.enemy.state !== Character.STATE_DIE){
+        // attaque enemy
+        logs = await this.enemy.tackle(this.player, Character.ATTACK, updateMonster)
         this.addLogs(logs);
         this.count++;
         updateGame({game: this})
       }else{
         this.count++;
         this.changeWorld();
-        this.monster = new Rogue(this.xpDefaults)
+        this.enemy = new Rogue(this.xpDefaults)
         updateGame({game: this})
       }
     }

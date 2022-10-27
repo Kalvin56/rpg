@@ -35,7 +35,7 @@ const Battle = () => {
     setIsPlaying(false);
   }
 
-  if(data.game && data.game.character.hp <= 0){
+  if(data.game && data.game.player.hp <= 0){
     return (
       <Over round={data.game.count}/>
     )
@@ -52,11 +52,11 @@ const Battle = () => {
             <button
               id="spell1"
               className="btn btn-spell flex-center"
-              disabled={isPlaying || data.game.character.energie < Character.ENERGIE_CONSUME_SORT}
+              disabled={isPlaying || data.game.player.energie < Character.ENERGIE_CONSUME_SORT}
               onClick={() => play(Character.ATTACK_SORT)}
             >
               <img src={require("../img/icons/beer.png")} alt="potion"></img>
-              <div className={`${data.game.character.energie >= Character.ENERGIE_CONSUME_SORT ? "energy-good" : "energy-bad"} flex-center`}>
+              <div className={`${data.game.player.energie >= Character.ENERGIE_CONSUME_SORT ? "energy-good" : "energy-bad"} flex-center`}>
                 <span>
                   {Character.ENERGIE_CONSUME_SORT}
                 </span>
@@ -65,11 +65,11 @@ const Battle = () => {
             <button
               id="spell1"
               className="btn btn-spell flex-center"
-              disabled={isPlaying || data.game.character.energie < Character.ENERGIE_CONSUME_SPECIAL}
+              disabled={isPlaying || data.game.player.energie < Character.ENERGIE_CONSUME_SPECIAL}
               onClick={() => play(Character.ATTACK_SPECIAL)}
             >
               <img src={require("../img/icons/sword2.png")} alt="potion"></img>
-              <div className={`${data.game.character.energie >= Character.ENERGIE_CONSUME_SPECIAL ? "energy-good" : "energy-bad"} flex-center`}>
+              <div className={`${data.game.player.energie >= Character.ENERGIE_CONSUME_SPECIAL ? "energy-good" : "energy-bad"} flex-center`}>
                 <span>
                   {Character.ENERGIE_CONSUME_SPECIAL}
                 </span>
@@ -78,11 +78,11 @@ const Battle = () => {
             <button
               id="spell2"
               className="btn btn-spell flex-center"
-              disabled={isPlaying || data.game.character.energie < Character.ENERGIE_CONSUME}
+              disabled={isPlaying || data.game.player.energie < Character.ENERGIE_CONSUME}
               onClick={() => play(Character.ATTACK)}
             >
               <img src={require("../img/icons/sword.png")}  alt="sword"></img>
-              <div className={`${data.game.character.energie >= Character.ENERGIE_CONSUME ? "energy-good" : "energy-bad"} flex-center`}>
+              <div className={`${data.game.player.energie >= Character.ENERGIE_CONSUME ? "energy-good" : "energy-bad"} flex-center`}>
                 <span>
                   {Character.ENERGIE_CONSUME}
                 </span>
@@ -99,8 +99,8 @@ const Battle = () => {
           </div>
           <div id="log-bloc">
             <div className='flex-center-column'>
-              {data.game.logs ? data.game.logs.map((log) => (
-                <div className='p-4'>
+              {data.game.logs ? data.game.logs.slice(-2).map((log, index) => (
+                <div key={index}>
                   {log}
                 </div>
               )) : null}
@@ -111,8 +111,8 @@ const Battle = () => {
           </div>
         </div>
         <div id="game-bloc">
-            <CharacterView type={data.game.character.type} character={data.game.character} energy />
-            <CharacterView type={data.game.monster.type} character={data.game.monster} reverse />
+            <CharacterView type={data.game.player.type} character={data.game.player} energy />
+            <CharacterView type={data.game.enemy.type} character={data.game.enemy} reverse />
         </div>
     </div>
     ): null

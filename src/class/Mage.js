@@ -7,11 +7,11 @@ class Mage extends Character {
     }
 
     sort(){
-      this.hp += 0.70*this.hp;
+      this.hp += 2*this.hp;
       if(this.hp > this.hpMax){
         this.hp = this.hpMax
       }
-      return "Regain santé + 70%"
+      return "Regain santé + 200%"
     }
 }
 

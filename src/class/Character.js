@@ -16,6 +16,7 @@ class Character {
     static ANIMATION_HIT = "hit";
     static ANIMATION_ATTACK_SPECIAL = "attack2";
     static ANIMATION_DEATH = "death";
+    static ANIMATION_SORT = "sort";
 
     static ENERGIE_CONSUME = 10;
     static ENERGIE_CONSUME_SPECIAL = 30;
@@ -115,6 +116,8 @@ class Character {
         logs.push(`
           [${this.name}] ${log}
         `)
+        this.animation = Character.ANIMATION_SORT;
+        await sleep(1000);
         this.lostEnergie(Character.ENERGIE_CONSUME_SORT)
       }else{
         this.animation = this.getAnimation(attackType)

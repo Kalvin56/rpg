@@ -1,6 +1,15 @@
 import React from 'react'
+import Character from '../class/Character'
 
 const CharacterView = ({type, character, energy, reverse}) => {
+
+  const getAnimation = (animation) => {
+    if(animation === Character.ANIMATION_SORT){
+        return "idle"
+    }
+    return animation
+  }
+
   return (
     <div id="character-bloc">
         <div className='character-infos'>
@@ -39,8 +48,8 @@ const CharacterView = ({type, character, energy, reverse}) => {
                 </div>
             </div>
         </div>
-        <div>
-            <img src={require(`../img/${type}/${character.animation}.gif`)} alt="animation" className={`animation ${reverse ? "reverse" : ""}`}/>
+        <div className={character.animation === Character.ANIMATION_SORT ? "potion" : ""}>
+            <img src={require(`../img/${type}/${getAnimation(character.animation)}.gif`)} alt="animation" className={`animation ${reverse ? "reverse" : ""}`}/>
         </div>
     </div>
   )

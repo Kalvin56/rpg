@@ -68,6 +68,10 @@ h1,h2,h3,h4,p{
   padding: 8px;
 }
 
+.m-4{
+  margin: 8px;
+}
+
 /* CHOIX PERSO */
 
 .main-block {
@@ -133,15 +137,37 @@ h1,h2,h3,h4,p{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: all 2s;
 }
 
 #game-bloc {
-  width: 70%;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
   min-width: 500px;
   display: flex;
   justify-content: space-between;
+}
+
+.potion{
+  background-image: url("img/potion.gif");
+  background-size: cover;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+.potion img{
+  animation: hue .5s infinite linear;
+}
+
+@keyframes hue {
+  from {
+    filter: hue-rotate(0deg);
+  }
+
+  to {
+    filter: hue-rotate(-0.25turn);
+  }
 }
 
 #character-bloc,
@@ -153,6 +179,7 @@ h1,h2,h3,h4,p{
   align-content: center;
   flex-direction: column;
   margin-bottom: 48px;
+  gap: 8px;
 }
 
 .character-infos {
@@ -211,6 +238,7 @@ h1,h2,h3,h4,p{
   height: 100%;
   background-color: #ff4d4f;
   border-radius: 8px;
+  transition: all 2s;
 }
 
 #character-energy__container {
@@ -227,6 +255,7 @@ h1,h2,h3,h4,p{
   height: 100%;
   background-color: #40a9ff;
   border-radius: 8px;
+  transition: all 2s;
 }
 
 .animation {
@@ -279,7 +308,6 @@ h1,h2,h3,h4,p{
 
 #log-bloc{
   flex: 2 1 auto;
-  overflow-y: scroll;
 }
 
 #counter-bloc{
