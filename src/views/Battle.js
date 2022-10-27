@@ -21,23 +21,23 @@ const Battle = () => {
     setData(newGame)
   }
 
-  const updateCharacter = (newCharacter) =>{
-    setData({...data, character: newCharacter})
+  const updatePlayer = (newPlayer) =>{
+    setData({...data, character: newPlayer})
   }
   
-  const updateMonster = (newMonster) =>{
-    setData({...data, character: newMonster})
+  const updateEnemy = (newEnemy) =>{
+    setData({...data, character: newEnemy})
   }
 
   const play = async (attack) => {
     setIsPlaying(true);
-    await data.game.play(attack, updateGame, updateCharacter, updateMonster);
+    await data.game.play(attack, updateGame, updatePlayer, updateEnemy);
     setIsPlaying(false);
   }
 
   if(data.game && data.game.player.hp <= 0){
     return (
-      <Over round={data.game.count}/>
+      <Over round={data.game.count - 1}/>
     )
   }
     

@@ -48,22 +48,24 @@ class Game {
       })
     }
 
-    async play(attackType, updateGame, updateCharacter, updateMonster){
-      // attaque player
-      let logs = await this.player.tackle(this.enemy, attackType, updateCharacter);
+    async play(attackType, updateGame, updatePlayer, updateEnemy){
+      // attaque joueur
+      let logs = await this.player.tackle(this.enemy, attackType, updatePlayer);
       this.addLogs(logs);
       updateGame({game: this})
 
       await sleep(1000);
 
       if(this.enemy.state !== Character.STATE_DIE){
-        // attaque enemy
-        logs = await this.enemy.tackle(this.player, Character.ATTACK, updateMonster)
+        // ennemi vivant -> attaque
+        logs = await this.enemy.tackle(this.player, Character.ATTACK, updateEnemy)
         this.addLogs(logs);
         this.count++;
         updateGame({game: this})
       }else{
+        // ennemi mort -> génération d'un nouvel ennemi
         this.count++;
+        // changement du monde selon xp du joueur
         this.changeWorld();
         this.enemy = new Rogue(this.xpDefaults)
         updateGame({game: this})

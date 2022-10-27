@@ -96,9 +96,13 @@ class Character {
       }
     }
 
-    async tackle(ennemy, attackType, updateCharacter){
+    async tackle(enemy, attackType, updateCharacter){
       let logs = [];
+
+      // puissance de l'attaque
       let power = attackType === Character.ATTACK_SPECIAL ? this.power*Character.ATTACK_SPECIAL_MULTIPLICATE : this.power
+
+      // vérification énergie suffisante
       let energieNeed = this.energieNeed(attackType);
       if(energieNeed > this.energie && attackType !== Character.NEXT){
         logs.push(`
@@ -106,33 +110,41 @@ class Character {
         `);
         return logs;
       }
+
       if(attackType === Character.NEXT){
+        // PASSER -> augmentation de l'énergie
         this.winEnergie(Character.ENERGIE_RETRIEVE)
         logs.push(`
           [${this.name}] Energie +${Character.ENERGIE_RETRIEVE}
         `)
       }else if(attackType === Character.ATTACK_SORT){
+        // SORT -> sort propre à chaque personnage
+        // MAGE -> augmentation de la santé
+        // KNIGHT -> augmentation de la puissance
         let log = this.sort();
         logs.push(`
           [${this.name}] ${log}
         `)
         this.animation = Character.ANIMATION_SORT;
         await sleep(1000);
+        // Perte énergie
         this.lostEnergie(Character.ENERGIE_CONSUME_SORT)
       }else{
+        // ATTAQUE NORMALE OU ATTAQUE SPECIALE
         this.animation = this.getAnimation(attackType)
-        ennemy.animation = Character.ANIMATION_HIT
+        enemy.animation = Character.ANIMATION_HIT
         updateCharacter(this);
         await sleep(2500);
-        ennemy.lostHp(power);
+        enemy.lostHp(power);
         logs.push(`[${this.name}] Attaque (${power} dégats)`);
         this.animation = Character.ANIMATION_IDLE
-        if(ennemy.state !== Character.STATE_DIE){
-          ennemy.animation = Character.ANIMATION_IDLE
+        if(enemy.state !== Character.STATE_DIE){
+          enemy.animation = Character.ANIMATION_IDLE
         }else{
-          logs.push(`[${ennemy.name}] Mort`);
+          logs.push(`[${enemy.name}] Mort`);
           this.xpUpgrade();
         }
+        // Perte énergie
         if(attackType === Character.ATTACK_SPECIAL){
           this.lostEnergie(Character.ENERGIE_CONSUME_SPECIAL)
         }else{
